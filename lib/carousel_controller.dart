@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'carousel_options.dart';
-import 'carousel_state.dart';
+import 'carousel_options.dart' as cor;
+import 'carousel_state.dart' as cas;
 import 'utils.dart';
 
 abstract class CarouselController {
@@ -29,9 +29,9 @@ abstract class CarouselController {
 class CarouselControllerImpl implements CarouselController {
   final Completer<Null> _readyCompleter = Completer<Null>();
 
-  CarouselState? _state;
+  cas.CarouselState? _state;
 
-  set state(CarouselState? state) {
+  set state(cas.CarouselState? state) {
     _state = state;
     if (!_readyCompleter.isCompleted) {
       _readyCompleter.complete();
@@ -39,7 +39,7 @@ class CarouselControllerImpl implements CarouselController {
   }
 
   void _setModeController() =>
-      _state!.changeMode(CarouselPageChangedReason.controller);
+      _state!.changeMode(cor.CarouselPageChangedReason.controller);
 
   @override
   bool get ready => _state != null;

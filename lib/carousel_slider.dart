@@ -6,7 +6,7 @@ import 'package:carousel_slider/carousel_state.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'carousel_controller.dart';
+import 'carousel_controller.dart' as car;
 import 'carousel_options.dart';
 import 'utils.dart';
 
@@ -31,7 +31,7 @@ class CarouselSlider extends StatefulWidget {
   final ExtendedIndexedWidgetBuilder? itemBuilder;
 
   /// A [MapController], used to control the map.
-  final CarouselControllerImpl _carouselController;
+  final car.CarouselControllerImpl _carouselController;
 
   final int? itemCount;
 
@@ -39,13 +39,13 @@ class CarouselSlider extends StatefulWidget {
       {required this.items,
       required this.options,
       this.disableGesture,
-      CarouselController? carouselController,
+      car.CarouselController? carouselController,
       Key? key})
       : itemBuilder = null,
         itemCount = items != null ? items.length : 0,
         _carouselController = carouselController != null
-            ? carouselController as CarouselControllerImpl
-            : CarouselController() as CarouselControllerImpl,
+            ? carouselController as car.CarouselControllerImpl
+            : car.CarouselController() as car.CarouselControllerImpl,
         super(key: key);
 
   /// The on demand item builder constructor
@@ -54,12 +54,12 @@ class CarouselSlider extends StatefulWidget {
       required this.itemBuilder,
       required this.options,
       this.disableGesture,
-      CarouselController? carouselController,
+      car.CarouselController? carouselController,
       Key? key})
       : items = null,
         _carouselController = carouselController != null
-            ? carouselController as CarouselControllerImpl
-            : CarouselController() as CarouselControllerImpl,
+            ? carouselController as car.CarouselControllerImpl
+            : car.CarouselController() as car.CarouselControllerImpl,
         super(key: key);
 
   @override
@@ -68,7 +68,7 @@ class CarouselSlider extends StatefulWidget {
 
 class CarouselSliderState extends State<CarouselSlider>
     with TickerProviderStateMixin {
-  final CarouselControllerImpl carouselController;
+  final car.CarouselControllerImpl carouselController;
   Timer? timer;
 
   CarouselOptions get options => widget.options;
@@ -355,7 +355,7 @@ class CarouselSliderState extends State<CarouselSlider>
                 BuildContext storageContext = carouselState!
                     .pageController!.position.context.storageContext;
                 final double? previousSavedPosition =
-                    PageStorage.of(storageContext)?.readState(storageContext)
+                    PageStorage.of(storageContext).readState(storageContext)
                         as double?;
                 if (previousSavedPosition != null) {
                   itemOffset = previousSavedPosition - idx.toDouble();
